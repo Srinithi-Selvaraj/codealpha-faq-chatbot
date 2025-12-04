@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FAQ Chatbot</title>
+</head>
+<body>
+<h2>FAQ Chatbot</h2>
+
+<input type="text" id="question" placeholder="Ask any AI related question here">
+<button onclick="ask()">Send</button>
+
+<p><b>Response:</b> <span id="response"></span></p>
+
+<script>
+async function ask() {
+    const q = document.getElementById("question").value;
+
+    const res = await fetch("http://127.0.0.1:5000/chat", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ question: q })
+    });
+
+    const data = await res.json();
+    document.getElementById("response").innerText = data.answer;
+}
+</script>
+
+</body>
+</html>
